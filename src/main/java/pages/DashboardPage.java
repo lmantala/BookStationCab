@@ -77,12 +77,12 @@ public class DashboardPage extends Base{
 //		bySelectDepDate.click();
 		selectDepDay(day).click();
 		
-		byBtnSearch.click();
+//		byBtnSearch.click();
 		driver.findElement(By.xpath("//ul[@class=\"timeDropDown blackText\"]//li[3]")).click();
 		
 		byBtnSearch.click();
 		
-	    driver.findElement(By.xpath("//div[@class=\"appendBottom30\"]//label[text()=\"SUV\"]")).click();
-	    driver.findElement(By.xpath("//div[@id=\"List\"]//div[contains(@class,\"cabBookDetails\")]/div/div[2]/div//p[1]")).click();
+//	    driver.findElement(By.xpath("//div[@class=\"appendBottom30\"]//label[text()=\"SUV\"]")).click();
+//	    driver.findElement(By.xpath("//div[@id=\"List\"]//div[contains(@class,\"cabBookDetails\")]/div/div[2]/div//p[1]")).click();
 	}
 }
