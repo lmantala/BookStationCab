@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import base.Base;
+import utils.Waits;
 
 public class DashboardPage extends Base{
 	
@@ -47,32 +48,47 @@ public class DashboardPage extends Base{
 	WebElement byAdBanner1;
 	
 	String byDepDatePicker = "//div[@class='DayPicker-Day' and text()='day']";
-		
+	String byLocationSuggetions = "(//div[contains(@class,\"autoSuggestPlugin\")]//span[contains(text(),\"location\")])[1]";
+	
+	Waits wait = new Waits();
+	
+	public WebElement selectLocation(String location) {
+		return driver.findElement(By.xpath(byLocationSuggetions.replace("location", location)));
+	}
+	
 	public WebElement selectDepDay (String day) {
 		return driver.findElement(By.xpath(byDepDatePicker.replace("day", day)));
 	}
 	
 	public void removeAds() {
-		byAdBanner1.click();
-		byAdBanner.click();
+		try {
+			byAdBanner1.click();
+			byAdBanner.click();
+		} catch (Exception e) {
+		}
+		
 	}
 	
 	public void searchCab(String from, String to, String day, String time) throws InterruptedException {
 		
 		byMenuCabs.click();
-		
+		Thread.sleep(2000);
 		byFromCity.click();
 		byTxtFromCity.sendKeys("Delhi");
-		Thread.sleep(7000);	
-		byTxtFromCity.sendKeys(Keys.ARROW_DOWN);
-		byTxtFromCity.sendKeys(Keys.ENTER);
+//		Thread.sleep(7000);	
+		wait.untillVisibilityOfElementLocatedBy(By.xpath(byLocationSuggetions.replace("location", "Delhi")), driver);
+		selectLocation("Delhi").click();
+//		byTxtFromCity.sendKeys(Keys.ARROW_DOWN);
+//		byTxtFromCity.sendKeys(Keys.ENTER);
 		
 		
 //		byToCity.click();
 		byTxtToCity.sendKeys("Manali");
-		Thread.sleep(7000);
-		byTxtToCity.sendKeys(Keys.ARROW_DOWN);
-		byTxtToCity.sendKeys(Keys.ENTER);
+//		Thread.sleep(7000);
+		wait.untillVisibilityOfElementLocatedBy(By.xpath(byLocationSuggetions.replace("location", "Manali")), driver);
+		selectLocation("Manali").click();;
+//		byTxtToCity.sendKeys(Keys.ARROW_DOWN);
+//		byTxtToCity.sendKeys(Keys.ENTER);
 		
 //		bySelectDepDate.click();
 		selectDepDay(day).click();
@@ -85,4 +101,5 @@ public class DashboardPage extends Base{
 //	    driver.findElement(By.xpath("//div[@class=\"appendBottom30\"]//label[text()=\"SUV\"]")).click();
 //	    driver.findElement(By.xpath("//div[@id=\"List\"]//div[contains(@class,\"cabBookDetails\")]/div/div[2]/div//p[1]")).click();
 	}
+	
 }
