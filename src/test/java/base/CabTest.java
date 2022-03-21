@@ -18,7 +18,5 @@ public class CabTest extends Base {
 		dashboardpage.removeAds();
 		dashboardpage.searchCab("Delhi", "Manali", "1", "12:15");
 		System.out.println("Lowset price of SUV is " + cabListingPage.findLowestPricedSUVCab());
-		
-		
 	}
 }

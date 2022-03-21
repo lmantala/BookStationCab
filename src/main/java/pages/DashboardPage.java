@@ -63,14 +63,14 @@ public class DashboardPage extends Base{
 		
 		byFromCity.click();
 		byTxtFromCity.sendKeys("Delhi");
-		Thread.sleep(3000);	
+		Thread.sleep(7000);	
 		byTxtFromCity.sendKeys(Keys.ARROW_DOWN);
 		byTxtFromCity.sendKeys(Keys.ENTER);
 		
 		
 //		byToCity.click();
 		byTxtToCity.sendKeys("Manali");
-		Thread.sleep(3000);
+		Thread.sleep(7000);
 		byTxtToCity.sendKeys(Keys.ARROW_DOWN);
 		byTxtToCity.sendKeys(Keys.ENTER);
 		

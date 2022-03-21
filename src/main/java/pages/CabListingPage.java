@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -16,21 +18,23 @@ public class CabListingPage extends Base{
 	WebElement byChkSUV;
 
 	@FindBy(xpath = "//div[@id=\"List\"]//div[contains(@class,\"cabBookDetails\")]/div/div[2]/div//p[1]")
-	List<WebElement> listOfSUBs;
+	List<WebElement> listOfSUVs;
 	
 	public CabListingPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 	
-	public Integer findLowestPricedSUVCab() {
+	public Integer findLowestPricedSUVCab() throws InterruptedException {
 		byChkSUV.click();
-		Integer maxPrice = 0;
-			
-		for(int i=0; i<listOfSUBs.size();i++) {
-			 if (Integer.valueOf(listOfSUBs.get(i).getText().replace("\u20B9", " ").replace(",", "").trim()) > maxPrice)
-				 maxPrice = Integer.valueOf(listOfSUBs.get(i).getText().replace("\u20B9", " ").replace(",", "").trim());
+		Thread.sleep(5000);
+		Integer temp = 0;
+		ArrayList<Integer> arrOfPrice = new ArrayList<Integer>();
+		
+		for(int i=0 ; i<listOfSUVs.size() ; i++) {
+			arrOfPrice.add(Integer.valueOf(listOfSUVs.get(i).getText().replace("\u20B9", " ").replace(",", "").trim()));
 		}
-		return maxPrice;
+		
+		return Collections.min(arrOfPrice);
 	}
 }
