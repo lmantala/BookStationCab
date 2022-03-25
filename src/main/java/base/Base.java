@@ -17,13 +17,23 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
+
+import com.beust.jcommander.Parameter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.CabListingPage;
+import pages.DashboardPage;
+import pages.GiftCardPage;
 
 public class Base {
 
 	public WebDriver driver;
+	public DashboardPage dashboardpage;
+	public CabListingPage cabListingPage;
+	public GiftCardPage giftCardPage;
 	
 	public void scrollToView(WebElement element) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -40,36 +50,39 @@ public class Base {
 		}
 	}
 	
-	@BeforeSuite
+	
+	@BeforeMethod
 	public void setup() {
-		String browser="chrome";
-		
-		if (browser.equals("chrome")) {
+		if (System.getProperty("browser").equals("chrome")) {
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			}
-		else if(browser.equals("firefox")) {
+		else if(System.getProperty("browser").equals("firefox")) {
 				WebDriverManager.firefoxdriver().setup();
 				driver = new FirefoxDriver();
 			}
-		else if(browser.equals("edge")) {
+		else if(System.getProperty("browser").equals("edge")) {
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 		}
 		
-	driver.manage().window().maximize();
-	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-	driver.get("http://www.makemytrip.com/");
+		dashboardpage = new DashboardPage(driver);
+		cabListingPage = new CabListingPage(driver);
+		giftCardPage = new GiftCardPage(driver);
+		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.get("http://www.makemytrip.com/");
 	
 	}
 	
 	@AfterMethod
 	public void results() {
-		
+		driver.quit();
 	}
 	
 	@AfterSuite
 	public void tearUp() {
-		driver.quit();
+		
 	}
 }

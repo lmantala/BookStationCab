@@ -1,24 +1,41 @@
-package base;
+package regression;
 
-import org.testng.ITestResult;
 import org.testng.annotations.Test;
+import base.Base;
 
-import pages.CabListingPage;
-import pages.DashboardPage;
 
-public class CabTest extends Base {
+public class Regression extends Base {
 
-	public DashboardPage dashboardpage;
-	public CabListingPage cabListingPage;
 	@Test
-	public void Test1() throws Exception {
+	public void Validate_Lowest_Cab_Price() throws Exception {
 		try {
-			dashboardpage = new DashboardPage(driver);
-			cabListingPage = new CabListingPage(driver);
-			
 			dashboardpage.removeAds();
 			dashboardpage.searchCab("Delhi", "Manali", "1", "12:15");
-			System.out.println("Lowset price of SUV is " + cabListingPage.findLowestPricedSUVCab());
+			cabListingPage.findandVerifyLowestPricedSUVCab();
+		} catch (Exception e) {
+			capture(driver, new Object(){}.getClass().getEnclosingMethod().getName());
+			throw new Exception(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void Validate_Numbers_Of_Adult_Persons() throws Exception {
+		try {
+			dashboardpage.removeAds();
+			dashboardpage.fetchAndVerifyAdultNumbersFromHotels();
+		} catch (Exception e) {
+			capture(driver, new Object(){}.getClass().getEnclosingMethod().getName());
+			throw new Exception(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void Velidate_Incorrect_Email_Message() throws Exception {
+		try {
+			dashboardpage.removeAds();
+			giftCardPage.validateBuyingGiftCard();
 		} catch (Exception e) {
 			capture(driver, new Object(){}.getClass().getEnclosingMethod().getName());
 			throw new Exception(e.getMessage());

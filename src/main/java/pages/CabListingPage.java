@@ -25,7 +25,7 @@ public class CabListingPage extends Base{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public Integer findLowestPricedSUVCab() throws InterruptedException {
+	public void findandVerifyLowestPricedSUVCab() throws InterruptedException {
 		byChkSUV.click();
 		Thread.sleep(5000);
 		Integer temp = 0;
@@ -35,6 +35,6 @@ public class CabListingPage extends Base{
 			arrOfPrice.add(Integer.valueOf(listOfSUVs.get(i).getText().replace("\u20B9", " ").replace(",", "").trim()));
 		}
 		
-		return Collections.min(arrOfPrice);
+		System.out.println("Lowst Cab price form Delhi to Manali is : " + Collections.min(arrOfPrice));
 	}
 }
